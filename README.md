@@ -1,16 +1,4 @@
-# ES6 with Babel 6+
-Get started with Javascript ES6 with this example, including "import" syntax.
+# What kinda repo is this?
 
-## Run
-
-* download repo
-* go to the project's root directory
-* install 
-```
-npm install
-```
-* run
-```
-npm start
-```
-* if you want to quit, just press CTRL+C
+So far, I haven't decided. This is just me learning JavaScript and ES6.
+Check back later.
