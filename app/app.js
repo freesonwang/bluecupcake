@@ -1,6 +1,8 @@
-// example import
-import ExampleClass from "./ExampleClass";
+import Vue from "vue"
 
-// block scope
-let e = new ExampleClass();
-e.sayHello();
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+});
