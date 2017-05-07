@@ -14,7 +14,7 @@ var gutil = require('gulp-util');
 gulp.task('es6', function() {
 	browserify({ debug: true })
 		.transform(babelify)
-		.require("./app/app.js", { entry: true })
+		.require("./app/main.js", { entry: true })
 		.bundle()
 		.on('error',gutil.log)
 		.pipe(source('bundle.js'))
