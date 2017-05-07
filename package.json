@@ -38,5 +38,9 @@
     "aliases": {
       "vue": "vue/dist/vue"
     }
+  },
+  "dependencies": {
+    "jsonpath": "^0.2.11",
+    "lodash": "^4.17.4"
   }
 }
