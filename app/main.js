@@ -64,7 +64,15 @@ function main() {
         return <li>{player.name} - {player.points}</li>;
       });
       
-      return <ul>{ players_html }</ul>;
+      return (
+        <ul>
+        {
+        this.world.players.map (player => 
+            <li><strong>{player.name}</strong> - {player.points}</li>
+          )
+        }
+        </ul>
+      );
     }
   });
 }
