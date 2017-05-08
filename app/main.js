@@ -55,15 +55,16 @@ function main() {
   document.world = world; // For debugging
   
   let app = new Vue({
-    el: '#app',
+    el: "#app",
     data: {
-      message: 'Hello Vue!',
       world: world
     },
     render: function render(h) {
-      return (
-        <h3>{ this.world.players[0].name} - {this.world.players[0].points }</h3>
-      )
+      let players_html = this.world.players.map (function (player, index) {
+        return <li>{player.name} - {player.points}</li>;
+      });
+      
+      return <ul>{ players_html }</ul>;
     }
   });
 }
