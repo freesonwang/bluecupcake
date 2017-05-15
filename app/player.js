@@ -1,10 +1,10 @@
-import random from "lodash/random";
 import jp from "jsonpath"
 
 export default class Player {
   constructor() {
     this.name = "";
-    this.points = random(10);
+    this.points = 0;
+    this.cards = [];
   }
 
   static players(spec) {
