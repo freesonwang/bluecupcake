@@ -23,7 +23,8 @@ export default class Card {
           let card = new Card();
           card.name = card_spec.name;
           card.desc = card_spec.desc;
-          // TODO: Add effect 
+          card.effects = card_spec.effects.map(
+              effect_spec => Effect.effect(effect_spec));
           cards.push(card);
         }
         return cards;
@@ -38,10 +39,18 @@ class Effect {
     constructor(params) {
         this.params = params;
     }
+    static effect(effect_spec) {
+        let cls = EffectTypeNames[effect_spec.type];
+        return new cls(effect_spec.params);
+    }
 }
 
 class AddPointsEffect extends Effect {
     onEffect(target) {
         target.points = target.points + this.params.impact;
     }
+}
+
+const EffectTypeNames = {
+    "AddPointsEffect" : AddPointsEffect
 }

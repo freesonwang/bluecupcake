@@ -14,7 +14,15 @@ function main() {
       {
         "name": "Pander",
         "desc": "Add 1 political point",
-        "type": "action"
+        "type": "action",
+        "effects": [
+          {
+            "type": "AddPointsEffect",
+            "params": {
+              "impact": 1
+            }
+          }
+        ]
       }
     ]
   };
@@ -30,12 +38,20 @@ function main() {
     data: {
       world: world
     },
+    methods: {
+      playCard: function (target) {
+        world.cards[0].effects[0].onEffect(target);
+      }
+    },
     template: `
     <div id="view">
       <h2>Players</h2>
   			<ul>
   			  <li v-for="player in world.players">
   			    <b>{{ player.name }}</b> - {{ player.points }}
+  			    <ul>
+  			      <li><a @click="playCard(player)">Play card</a></li>
+  			    </ul>
   			  </li>
   			</ul>
   			
