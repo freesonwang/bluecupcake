@@ -25,7 +25,11 @@ export default class Card {
           card.desc = card_spec.desc;
           card.effects = card_spec.effects.map(
               effect_spec => Effect.effect(effect_spec));
-          cards.push(card);
+          let count = card_spec.count;
+          console.log(count);
+          for (let c = 0; c < count; c++) {
+            cards.push(card);   
+          }
         }
         return cards;
     }

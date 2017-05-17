@@ -4,7 +4,7 @@ export default class Player {
   constructor() {
     this.name = "";
     this.points = 0;
-    this.cards = [];
+    this.hand = [];
   }
 
   static players(spec) {
