@@ -8,7 +8,28 @@
 <body>
 	<div class="container">
 		<h1><span style="color: dodgerblue">Blue</span>Cupcake</h1>
-		<div id="app"></div>
+		<div id="app">
+		    <h2>Players</h2>
+	  		<ul>
+				<li v-for="player in world.players">
+				  <b>{{ player.name }}</b> - {{ player.points }}
+				  <ul>
+				    <li><a @click="dealCard(player)">Deal me</a></li>
+				    <ul>
+				      <li v-for="card in player.hand">
+				      <b>{{ card.name }}</b> - {{ card.desc }} <a @click="playCard(player, card)">Play card</a>
+				      </li>
+				    </ul>
+				  </ul>
+				</li>
+	  		</ul>
+	  		<h2>Deck</h2>
+	  		<ul>
+	  			<li v-for="card in world.cards">
+	  				<b>{{ card.name }}</b> - {{ card.desc }}
+	  			</li>
+	  	  	</ul>
+		</div>
 	</div>
 	<script src="bundle.js"></script>
 </body>

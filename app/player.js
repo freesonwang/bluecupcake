@@ -7,6 +7,10 @@ export default class Player {
     this.hand = [];
   }
 
+  setResult(result) {
+    this.points = this.points + result.impact();
+  }
+
   static players(spec) {
     let players = [];
     let players_spec = jp.query(spec, '$..players')[0];

@@ -1,4 +1,6 @@
 import jp from "jsonpath"
+import Result from "./result"
+import Effect from "./effect"
 
 export default class Card {
     constructor(params) {
@@ -14,6 +16,16 @@ export default class Card {
         // this.cost = 0;
         // this.conditions = [];
         this.effects = [];
+    }
+    
+    onPlay(source) {
+        let result = new Result(source);
+        
+        for (let effect of this.effects) {
+            effect.onPlay(result);
+        }
+        
+        result.target.setResult(result);
     }
     
     static cards(spec) {
@@ -33,28 +45,4 @@ export default class Card {
         }
         return cards;
     }
-}
-
-//
-// Effect
-//
-
-class Effect {
-    constructor(params) {
-        this.params = params;
-    }
-    static effect(effect_spec) {
-        let cls = EffectTypeNames[effect_spec.type];
-        return new cls(effect_spec.params);
-    }
-}
-
-class AddPointsEffect extends Effect {
-    onEffect(target) {
-        target.points = target.points + this.params.impact;
-    }
-}
-
-const EffectTypeNames = {
-    "AddPointsEffect" : AddPointsEffect
 }
