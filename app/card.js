@@ -20,12 +20,19 @@ export default class Card {
     
     onPlay(source) {
         let result = new Result(source);
-        
-        for (let effect of this.effects) {
-            effect.onPlay(result);
+        this.effects[0].onPlay(this, result);
+    }
+    
+    onEffectDone (effect, result) {
+        let effect_index = this.effects.indexOf(effect);
+        if (effect_index + 1 < this.effects.length) {
+            let next_effect = this.effects[effect_index + 1];
+            next_effect.onPlay(this, result);
         }
-        
-        result.target.setResult(result);
+        else {
+            console.log("done with effects");
+            result.target.setResult(result);
+        }
     }
     
     static cards(spec) {
@@ -38,7 +45,6 @@ export default class Card {
           card.effects = card_spec.effects.map(
               effect_spec => Effect.effect(effect_spec));
           let count = card_spec.count;
-          console.log(count);
           for (let c = 0; c < count; c++) {
             cards.push(card);   
           }
