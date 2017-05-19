@@ -1,5 +1,6 @@
 import Player from "./player";
-import Card from "./card"
+import Card from "./card";
+import Logging from "./logging";
 
 export default class World {
   constructor() {
@@ -8,7 +9,8 @@ export default class World {
   }
 
   static world(spec) {
-    let world = new World;
+    Logging.trace("Creating World from world spec");
+    const world = new World;
     world.players = Player.players(spec);
     world.cards = Card.cards(spec);
     return world;

@@ -1,13 +1,12 @@
-import StackTrace from "stacktrace-js"
+import StackTrace from "stacktrace-js";
 
 export default class Logging {
   static stackLog (stack_frames, log_type, doc) {
-    console.log(stack_frames);
     var file_name, fn_line, fn_name;
     fn_line = stack_frames[1].lineNumber;
     fn_name = stack_frames[1].functionName;
     file_name = stack_frames[1].fileName.split("/").pop();
-    if (doc === void 0) {
+    if (doc === undefined) {
       return console.log("[" + log_type + "] " + file_name + ":" + fn_line + " - " + fn_name + "()");
     } else {
       return console.log("[" + log_type + "] " + file_name + ":" + fn_line + " - " + fn_name + "() - " + doc);

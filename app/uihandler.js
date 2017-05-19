@@ -1,3 +1,5 @@
+import Logging from "./logging";
+
 export default class UIHandler {
   constructor() {
     this.notifiees = [];
@@ -5,11 +7,7 @@ export default class UIHandler {
   }
   
   onObjClick(obj) {
-    console.log("onObjClick - Clicked object!");
-    console.log(obj);
-    console.log("going to notify..." + this.notifiees.length);
-    
-    
+    Logging.trace("An object ahs been clicked...");    
     for (let notifiee of this.notifiees) {
         if (notifiee.isMeaningfulNotification(obj)) {
             notifiee.notify(obj);
@@ -18,17 +16,14 @@ export default class UIHandler {
   }
   
   addNotifiee(notifiee) {
+    Logging.trace("Adding notifee");
       this.notifiees.push(notifiee);
   }
   
   static instance() {
-    console.log("calling instance");
     if (UIHandler._instance === undefined) {
-      console.log("creatinging instance");
       UIHandler._instance = new UIHandler();
     }
-    console.log("returning instance");
-    console.log(UIHandler._instance);
     return UIHandler._instance;
   }
 }

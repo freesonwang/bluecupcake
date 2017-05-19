@@ -1,4 +1,5 @@
-import UIHandler from "./uihandler"
+import UIHandler from "./uihandler";
+import Logging from "./logging";
 
 export default class Effect {
     constructor(params) {
@@ -8,8 +9,22 @@ export default class Effect {
     }
     
     onPlay(card, result) {
+        this._beforeOnPlay(card, result);
+        this.play(card, result);
+        this._afterOnPlay(card, result);
+    }
+    
+    play(card, result) {
+        
+    }
+    
+    _beforeOnPlay(card, result) {
         this.result = result;
-        this.card = card;
+        this.card = card;   
+    }
+    
+    _afterOnPlay(card, result) {
+        this.card.onEffectDone(this, this.result);
     }
     
     static effect(effect_spec) {
@@ -20,39 +35,35 @@ export default class Effect {
 }
 
 class TargetSelfEffect extends Effect {
-    onPlay(card, result) {
-        super.onPlay(card, result);
+    play(card, result) {
+        Logging.trace("Setting target to self");
         result.target = result.source;
-        this.card.onEffectDone(this, this.result);
     }
 }
 
 class AddPointsEffect extends Effect {
-    onPlay(card, result) {
-        super.onPlay(card, result);
+    play(card, result) {
+        Logging.trace(`Adding ${this.params.base_impact} points to impact`);
         result.base_impact = result.base_impact + this.params.base_impact;
-        this.card.onEffectDone(this, this.result);
     }
 }
 
 class TargetPlayerEffect extends Effect {
     onPlay(card, result) {
-        super.onPlay(card, result);
-        alert("You need to pick a target");
-        let inst = UIHandler.instance()
-        console.log(inst);
-        inst.addNotifiee(this); // this notifee stuff should be in a class
+        Logging.trace("Begin to look for a target");
+        this._beforeOnPlay(card, result);
+        alert("You need to pick a target"); // TODO: Take this out
+        UIHandler.instance().addNotifiee(this); //  Notifee stuff should be in a class
     }
     
     isMeaningfulNotification(obj) {
-        console.log("calling meaningful");
         return obj.constructor.name == "Player";
     }
     
     notify(obj) {
+        Logging.trace("Setting the target to ${obj.name}");
         this.result.target = obj;
-        console.log("notify: target is set to " + this.result.target.name);
-        this.card.onEffectDone(this, this.result); // continue execution
+        this._afterOnPlay(this.card, this.result);
     }
 }
 
@@ -67,5 +78,5 @@ const EffectTypeNames = {
     "TargetSelfEffect" : TargetSelfEffect,
     "TargetPlayerEffect" : TargetPlayerEffect,
     "PlayCardEffect" : PlayCardEffect
-}
+};
 
