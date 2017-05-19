@@ -43,6 +43,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "jsonpath": "^0.2.11",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "stacktrace-js": "^2.0.0"
   }
 }

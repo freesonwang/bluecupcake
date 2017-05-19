@@ -1,8 +1,13 @@
 import Vue from "vue";
 import World from "./world";
 import UIHandler from "./uihandler"
+import Logging from "./logging"
 
 function main() {
+  console.log(Logging);
+  document.Logging = Logging;
+  Logging.trace("Hello from main");
+  
   const CONFIG = {
     "players": [{
       "name": "Hillary Clinton",
