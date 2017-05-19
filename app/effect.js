@@ -1,11 +1,10 @@
 import UIHandler from "./uihandler";
 import Logging from "./logging";
+import Player from "./player";
 
 export default class Effect {
     constructor(params) {
         this.params = params;
-        this.card = null;
-        this.result = null;
     }
     
     onPlay(card, result) {
@@ -19,12 +18,11 @@ export default class Effect {
     }
     
     _beforeOnPlay(card, result) {
-        this.result = result;
-        this.card = card;   
+
     }
     
     _afterOnPlay(card, result) {
-        this.card.onEffectDone(this, this.result);
+        card.onEffectDone(this, result);
     }
     
     static effect(effect_spec) {
@@ -53,17 +51,16 @@ class TargetPlayerEffect extends Effect {
         Logging.trace("Begin to look for a target");
         this._beforeOnPlay(card, result);
         alert("You need to pick a target"); // TODO: Take this out
-        UIHandler.instance().addNotifiee(this); //  Notifee stuff should be in a class
-    }
-    
-    isMeaningfulNotification(obj) {
-        return obj.constructor.name == "Player";
-    }
-    
-    notify(obj) {
-        Logging.trace("Setting the target to ${obj.name}");
-        this.result.target = obj;
-        this._afterOnPlay(this.card, this.result);
+        UIHandler.instance().addNotifiee({
+            onlyFiresOnce: () => true,
+            notify: (obj) => {
+                if (obj instanceof Player) {
+                    Logging.trace(`Setting the target to ${obj.name}`);
+                    result.target = obj;
+                    this._afterOnPlay(card, result);
+                }
+            },
+        });
     }
 }
 

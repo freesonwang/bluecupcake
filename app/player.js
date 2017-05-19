@@ -9,7 +9,7 @@ export default class Player {
   }
 
   setResult(result) {
-    Logging.trace(`Setting result. Points impacted by ${result.impact}`);
+    Logging.trace(`Setting result. Points impacted by ${result.impact()}`);
     this.points = this.points + result.impact();
   }
 

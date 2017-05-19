@@ -48,7 +48,7 @@ const CONFIG = {
     },
     {
       "name": "Hack National Committee Headquarters",
-      "desc": "Target a player. Force player to reveal a scandal",
+      "desc": "Target a player. Lose 100 points.",
       "type": "offense",
       "count": 3,
       "effects": [
@@ -79,14 +79,13 @@ function main() {
     },
     methods: {
       onObjClick: function(obj) {
-        console.log(obj);
         UIHandler.instance().onObjClick(obj);
       },
       playCard: function (player, card) {
         card.onPlay(player);
       },
       dealCard: function (target) {
-        let card = world.cards.pop();
+        const card = world.cards.pop();
         target.hand.push(card);
       }
     }
