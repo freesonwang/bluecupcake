@@ -5,10 +5,10 @@ import Logging from "./logging";
 
 const CONFIG = {
   "players": [{
-    "name": "Hillary Clinton",
+    "name": "Brenda King",
     "points": 10
   }, {
-    "name": "Donald Trump",
+    "name": "Jon Gordon",
     "points": 6
   }],
   "cards": [

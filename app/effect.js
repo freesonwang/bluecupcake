@@ -1,14 +1,12 @@
 import UIHandler from "./uihandler";
 import Logging from "./logging";
 import Player from "./player";
-import { deprecate } from "core-decorators";
 
 export default class Effect {
     constructor(params) {
         this.params = params;
     }
     
-    //@deprecate
     onPlay(card, result) {
         this._beforeOnPlay(card, result);
         this.play(card, result);
@@ -35,7 +33,6 @@ export default class Effect {
 }
 
 class TargetSelfEffect extends Effect {
-    //@deprecate
     play(card, result) {
         Logging.trace("Setting target to self");
         result.target = result.source;
@@ -43,7 +40,7 @@ class TargetSelfEffect extends Effect {
 }
 
 class AddPointsEffect extends Effect {
-    //@deprecate
+    @Logging.docstring("Adding ${params.base_impact} points to impact, {0} {1}")
     play(card, result) {
         Logging.trace(`Adding ${this.params.base_impact} points to impact`);
         result.base_impact = result.base_impact + this.params.base_impact;
