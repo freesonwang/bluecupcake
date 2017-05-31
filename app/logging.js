@@ -22,9 +22,9 @@ export default class Logging {
     }
   }
   
-  static trace(doc) {
+  static log(doc) {
     StackTrace.get().then(function(stack) {
-      Logging.logline(doc, "TRACE", stack, stack[1].functionName);
+      Logging.logline(doc, "LOG  ", stack, stack[1].functionName);
     });
   }
   
@@ -51,18 +51,8 @@ export default class Logging {
           const self_map = {"this" : self};
           const combined_args = merge(args_map, self_map);
           const doc = ctx.msg.format(combined_args);
-          const log_type = "DOC  ";
           ctx.stack_promise.then(function(stack) {
-            const fn_line = stack[1].lineNumber;
-            const fn_name = orgMethod.name;
-            const file_name = stack[1].fileName.split("/").pop();
-            const foo = align(`${file_name}:${fn_line} - ${fn_name}()`, 30, "left");
-            //const bar = align(`${fn_name}()`, 15, "left");
-            if (doc === undefined || doc == "") {
-              console.log(`[${log_type}] ${foo}`);
-            } else {
-              console.log(`[${log_type}] ${foo} ${doc}`);
-            }
+            Logging.logline(doc, "TRACE", stack, orgMethod.name);
           });
           return methodCallback();
         }();

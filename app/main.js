@@ -67,7 +67,7 @@ const CONFIG = {
 };
 
 function main() {
-  Logging.trace("Running app's main function...");
+  Logging.log("Running app's main function...");
 
   const world = World.world(CONFIG);
   document.world = world; // For debugging
