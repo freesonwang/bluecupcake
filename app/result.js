@@ -8,7 +8,7 @@ export default class Result {
         this.impact_multiplier = 1;
     }
     
-    @Logging.prologue("Getting total impact...")
+    @Logging.logger().prologue("Getting total impact...")
     impact() {
         return this.base_impact * this.impact_multiplier;
     }

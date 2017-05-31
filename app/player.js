@@ -8,12 +8,12 @@ export default class Player {
     this.hand = [];
   }
 
-  @Logging.prologue("Setting result")
+  @Logging.logger().prologue("Setting result")
   setResult(result) {
     this.points = this.points + result.impact();
   }
 
-  @Logging.prologue("Creating players from player spec...")
+  @Logging.logger().prologue("Creating players from player spec...")
   static players(spec) {
     let players = [];
     let players_spec = jp.query(spec, '$..players')[0];

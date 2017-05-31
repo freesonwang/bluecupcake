@@ -19,7 +19,7 @@ export default class Card {
         this.effects = [];
     }
     
-    @Logging.prologue(`Beginning to play {this.name}`)
+    @Logging.logger().prologue(`Beginning to play '{this.name}'`)
     onPlay(source) {
         let result = new Result(source);
         if (this.effects.length > 0) {
@@ -27,7 +27,7 @@ export default class Card {
         }
     }
     
-    @Logging.prologue("{effect.constructor.name} has finished")
+    @Logging.logger().prologue("{effect.constructor.name} has finished")
     onEffectDone (effect, result) {
         const next_effect = this._nextEffect(effect);
         if (next_effect) {
@@ -38,7 +38,7 @@ export default class Card {
         }
     }
     
-    @Logging.prologue("Getting the effect after '{current_effect.constructor.name}'")
+    @Logging.logger().prologue("Getting the effect after '{current_effect.constructor.name}'")
     _nextEffect(current_effect) {
         const effect_index = this.effects.indexOf(current_effect);
         let next_effect = null;
@@ -48,7 +48,7 @@ export default class Card {
         return next_effect;
     }
     
-    @Logging.prologue("Creating cards from spec")
+    @Logging.logger().prologue("Creating cards from spec")
     static cards(spec) {
         let cards = [];
         let cards_spec = jp.query(spec, '$..cards')[0];
