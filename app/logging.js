@@ -2,6 +2,7 @@ import StackTrace from "stacktrace-js";
 import zipObject from "lodash/zipObject";
 import merge from "lodash/merge";
 import "string.format";
+import align from "string-align";
 var getParameterNames = require('get-parameter-names');
 
 export default class Logging {
@@ -10,20 +11,20 @@ export default class Logging {
     this.msg = "";
   }
   
-  static stackLog (stack_frames, log_type, doc, stack_frame_level) {
-    const fn_line = stack_frames[stack_frame_level].lineNumber;
-    const fn_name = stack_frames[stack_frame_level].functionName;
-    const file_name = stack_frames[stack_frame_level].fileName.split("/").pop();
-    if (doc === undefined) {
-      console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}()`);
+  static logline(doc, log_type, stack, fn_name) {
+    const fn_line = stack[1].lineNumber;
+    const file_name = stack[1].fileName.split("/").pop();
+    const origin = align(`${file_name}:${fn_line} - ${fn_name}()`, 25, "left");
+    if (doc === undefined || doc == "") {
+      console.log(`[${log_type}] ${origin}`);
     } else {
-      console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}() - ${doc}`);
+      console.log(`[${log_type}] ${origin} ${doc}`);
     }
   }
   
   static trace(doc) {
     StackTrace.get().then(function(stack) {
-      Logging.stackLog(stack, "TRACE", doc, 1);
+      Logging.logline(doc, "TRACE", stack, stack[1].functionName);
     });
   }
   
@@ -55,10 +56,12 @@ export default class Logging {
             const fn_line = stack[1].lineNumber;
             const fn_name = orgMethod.name;
             const file_name = stack[1].fileName.split("/").pop();
+            const foo = align(`${file_name}:${fn_line} - ${fn_name}()`, 30, "left");
+            //const bar = align(`${fn_name}()`, 15, "left");
             if (doc === undefined || doc == "") {
-              console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}()`);
+              console.log(`[${log_type}] ${foo}`);
             } else {
-              console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}() - ${doc}`);
+              console.log(`[${log_type}] ${foo} ${doc}`);
             }
           });
           return methodCallback();
