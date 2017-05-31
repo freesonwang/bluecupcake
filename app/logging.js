@@ -34,7 +34,7 @@ export default class Logging {
     });
   }
 
-  static docstring(msg) {
+  static prologue(msg) {
     return function(target, key, descriptor) {
       let orgMethod = descriptor.value;
       descriptor.value = function (...arg) {

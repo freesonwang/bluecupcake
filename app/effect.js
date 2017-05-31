@@ -33,30 +33,28 @@ export default class Effect {
 }
 
 class TargetSelfEffect extends Effect {
+    @Logging.prologue("Setting target to self")
     play(card, result) {
-        Logging.trace("Setting target to self");
         result.target = result.source;
     }
 }
 
 class AddPointsEffect extends Effect {
-    @Logging.docstring("{card.name} adding {this.params.base_impact} damage")
+    @Logging.prologue("{card.name} adding {this.params.base_impact} damage")
     play(card, result) {
-        Logging.trace(`Adding ${this.params.base_impact} points to impact`);
         result.base_impact = result.base_impact + this.params.base_impact;
     }
 }
 
 class TargetPlayerEffect extends Effect {
+    @Logging.prologue("Begin to look for a target")
     onPlay(card, result) {
-        Logging.trace("Begin to look for a target");
         this._beforeOnPlay(card, result);
         alert("You need to pick a target"); // TODO: Take this out
         UIHandler.instance().addNotifiee({
             onlyFiresOnce: () => true,
             notify: (obj) => {
                 if (obj instanceof Player) {
-                    Logging.trace(`Setting the target to ${obj.name}`);
                     result.target = obj;
                     this._afterOnPlay(card, result);
                 }

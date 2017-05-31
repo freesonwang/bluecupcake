@@ -8,13 +8,13 @@ export default class Player {
     this.hand = [];
   }
 
+  @Logging.prologue("Setting result")
   setResult(result) {
-    Logging.trace(`Setting result. Points impacted by ${result.impact()}`);
     this.points = this.points + result.impact();
   }
 
+  @Logging.prologue("Creating players from player spec...")
   static players(spec) {
-    Logging.trace("Creating players from player spec...");
     let players = [];
     let players_spec = jp.query(spec, '$..players')[0];
     for (let player_spec of players_spec) {

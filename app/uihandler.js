@@ -5,8 +5,8 @@ export default class UIHandler {
     this.notifiees = [];
   }
   
+  @Logging.prologue("Something clicked. {this.notifiees.length} listening...")
   onObjClick(obj) {
-    Logging.trace(`Something clicked. ${this.notifiees.length} listening...`);
     const fired = [];
     for (let i = 0; i < this.notifiees.length; i++) {
         const notifiee = this.notifiees[i];
@@ -20,13 +20,13 @@ export default class UIHandler {
     }
   }
   
+  @Logging.prologue("Adding notifee")
   addNotifiee(notifiee) {
-    Logging.trace("Adding notifee");
     this.notifiees.push(notifiee);
   }
   
+  @Logging.prologue("Removing notifiee")
   removeNotifiee(notifee) {
-    Logging.trace("Removing notifiee");
     const index = this.notifiees.indexOf(notifee);
     this.notifiees.splice(index, 1);
   }

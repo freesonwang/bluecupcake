@@ -8,8 +8,8 @@ export default class World {
     this.cards = [];
   }
 
+  @Logging.prologue("Creating World from world spec")
   static world(spec) {
-    Logging.trace("Creating World from world spec");
     const world = new World;
     world.players = Player.players(spec);
     world.cards = Card.cards(spec);
