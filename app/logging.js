@@ -1,35 +1,36 @@
 import StackTrace from "stacktrace-js";
-var template = require('es6-template-strings');
-var stringformat = require('stringformat');
+import zipObject from "lodash/zipObject";
+import merge from "lodash/merge";
+import "string.format";
+var getParameterNames = require('get-parameter-names');
 
 export default class Logging {
-  static stackLog (stack_frames, log_type, doc) {
-    var file_name, fn_line, fn_name;
-    fn_line = stack_frames[1].lineNumber;
-    fn_name = stack_frames[1].functionName;
-    file_name = stack_frames[1].fileName.split("/").pop();
+  static stackLog (stack_frames, log_type, doc, stack_frame_level) {
+    const fn_line = stack_frames[stack_frame_level].lineNumber;
+    const fn_name = stack_frames[stack_frame_level].functionName;
+    const file_name = stack_frames[stack_frame_level].fileName.split("/").pop();
     if (doc === undefined) {
-      return console.log("[" + log_type + "] " + file_name + ":" + fn_line + " - " + fn_name + "()");
+      console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}()`);
     } else {
-      return console.log("[" + log_type + "] " + file_name + ":" + fn_line + " - " + fn_name + "() - " + doc);
+      console.log(`[${log_type}] ${file_name}:${fn_line} - ${fn_name}() - ${doc}`);
     }
   }
   
   static debug(doc) {
-    return StackTrace.get().then(function(stack_frames) {
-      return Logging.stackLog(stack_frames, "DEBUG", doc);
+    StackTrace.get().then(function(stack_frames) {
+      Logging.stackLog(stack_frames, "DEBUG", doc, 1);
     });
   }
   
   static trace(doc) {
-    return StackTrace.get().then(function(stack_frames) {
-      return Logging.stackLog(stack_frames, "TRACE", doc);
+    StackTrace.get().then(function(stack_frames) {
+      Logging.stackLog(stack_frames, "TRACE", doc, 1);
     });
   }
   
   static info(doc) {
-    return StackTrace.get().then(function(stack_frames) {
-      return Logging.stackLog(stack_frames, "INFO ", doc);
+    StackTrace.get().then(function(stack_frames) {
+      Logging.stackLog(stack_frames, "INFO ", doc, 1);
     });
   }
 
@@ -40,9 +41,13 @@ export default class Logging {
         var self = this;
         return function() {
           var methodCallback = function() { return orgMethod.apply(self, arg) };
-          let s1 = template(msg, self);
-          let s2 = stringformat(s1, ...arg);
-          console.log(s2);
+          const args_map = zipObject(getParameterNames(orgMethod), arg);
+          const self_map = {"this" : self};
+          const combined_args = merge(args_map, self_map);
+          const doc = msg.format(combined_args);
+          StackTrace.get().then(function(stack_frames) {
+            Logging.stackLog(stack_frames, "DOC  ", doc, 2);
+          });
           return methodCallback();
         }();
       };

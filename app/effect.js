@@ -40,7 +40,7 @@ class TargetSelfEffect extends Effect {
 }
 
 class AddPointsEffect extends Effect {
-    @Logging.docstring("Adding ${params.base_impact} points to impact, {0} {1}")
+    @Logging.docstring("{card.name} adding {this.params.base_impact} damage")
     play(card, result) {
         Logging.trace(`Adding ${this.params.base_impact} points to impact`);
         result.base_impact = result.base_impact + this.params.base_impact;
