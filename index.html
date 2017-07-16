@@ -10,7 +10,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-static-top">
+	<nav class="navbar navbar-default">
 	  <div class="container">
 	    <div class="navbar-header">
 	      <a class="navbar-brand" href="#">
@@ -20,27 +20,38 @@
 	  </div>
 	</nav>
 	
-	<div class="container" id="app">
-		<div class="row">
-		  <div class="col-md-6" v-for="(player, index) in world.players">
-			<h1 @click="onObjClick(player)" >{{ player.name }}</h1>
-			<h2 class="score">{{ player.points }}</h2>
-			<button class="btn btn-default" @click="dealCard(player)">Deal me</button>
-			<ul v-for="card in player.hand">
-    			<li>
-    				<b>{{ card.name }}</b> {{ card.desc }}
-    				<a @click="playCard(player, card)">Play card</a>
-    			</li>
-  			</ul>
-		  </div>
+	<div id="gameview"></div>
+	
+	<div id="app">
+		<div style="background-color: lightgray; margin-top: 1.0em; padding-top:1.0em;">
+		<div class="container">
+			
+			<h1>Current Player: {{world.curr_player.name}}</h1>
+			
+			<div class="row">
+			  <div class="col-md-6" v-for="(player, index) in world.players">
+				<h1 @click="onObjClick(player)" >{{ player.name }}</h1>
+				<h2 class="score">{{ player.points }}</h2>
+				<button class="btn btn-default" @click="dealCard(player)">Deal me</button>
+				<ul v-for="card in player.hand">
+	    			<li>
+	    				<b>{{ card.name }}</b> {{ card.desc }}
+	    				<a @click="playCard(player, card)">Play card</a>
+	    			</li>
+	  			</ul>
+			  </div>
+			</div>
 		</div>
-
-  		<h1>Deck</h1>
-  		<ul>
-  			<li v-for="card in world.cards">
-  				<b>{{ card.name }}</b> - {{ card.desc }}
-  			</li>
-  	  	</ul>
+		
+		<div class="container">
+	  		<h1>Deck</h1>
+	  		<ul>
+	  			<li v-for="card in world.cards">
+	  				<b>{{ card.name }}</b> - {{ card.desc }}
+	  			</li>
+	  	  	</ul>
+  	  	</div>
+	</div>
 	</div>
 	
 	<script src="bundle.js"></script>

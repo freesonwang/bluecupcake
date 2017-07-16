@@ -4,6 +4,7 @@ var browserify = require("browserify");
 var babelify = require("babelify");
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
+var vueify = require('gulp-vueify');
 
 // Lets bring es6 to es5 with this.
 // Babel - converts ES6 code to ES5 - however it doesn't handle imports.
@@ -21,8 +22,14 @@ gulp.task('es6', function() {
     	.pipe(gulp.dest('./'));
 });
 
+gulp.task('vueify', function () {
+  return gulp.src('components/**/*.vue')
+    .pipe(vueify())
+    .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('watch',function() {
-	gulp.watch(['./app/**/*.js'],['es6'])
+	gulp.watch(['./app/**/*.js', './app/**/*.vue'],['es6','vueify'])
 });
  
-gulp.task('default', ['es6','watch']);
+gulp.task('default', ['es6','watch','vueify']);

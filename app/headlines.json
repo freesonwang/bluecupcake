@@ -1,0 +1,42 @@
+// http://www.title-generator.com/index.php/best-online-title-generator.html
+const HEADLINES = {
+"headlines" : 
+  [
+    "Why Most People Will Never Be Great At Cooking",
+    "Master (Your) Cooking in 5 Minutes A Day",
+    "How Cooking Made Me A Better Salesperson",
+    "Interesting Facts I Bet You Never Knew About Cooking",
+    "What You Should Have Asked Your Teachers About Cooking",
+    "3 Ways To Master Cooking Without Breaking A Sweat",
+    "10 Ways To Reinvent Your Cooking",
+    "3 Cooking Secrets You Never Knew",
+    "Death, Cooking And Taxes",
+    "Cooking? It's Easy If You Do It Smart",
+    "3 Easy Ways To Make Cooking Faster",
+    "Why You Never See Cooking That Actually Works",
+    "Sexy Cooking",
+    "5 Brilliant Ways To Teach Your Audience About Cooking",
+    "Here Is A Method That Is Helping Cooking",
+    "Fall In Love With Cooking",
+    "At Last, The Secret To Weight Loss Is Revealed",
+    "How To Become Better With Weight Loss In 10 Minutes",
+    "The Best Way To Weight Loss",
+    "Proof That Weight Loss Is Exactly What You Are Looking For",
+    "Boost Your Weight Loss With These Tips",
+    "How We Improved Our Weight Loss In One Week(Month, Day)",
+    "What Can Instagramm Teach You About Weight Loss",
+    "Don't Be Fooled By Weight Loss",
+    "The Untold Secret To Mastering Weight Loss In Just 3 Days",
+    "Weight Loss: This Is What Professionals Do",
+    "3 Easy Ways To Make Weight Loss Faster",
+    "There’s Big Money In Hollywood",
+    "Hollywood: The Samurai Way",
+    "At Last, The Secret To Hollywood Is Revealed",
+    "101 Ideas For Hollywood",
+    "Guaranteed No Stress Hollywood",
+    "Everything You Wanted to Know About Hollywood and Were Too Embarrassed to Ask",
+    "The Anthony Robins Guide To Hollywood",
+    "Need More Time? Read These Tips To Eliminate Hollywood",
+    "The Hollywood Mystery Revealed"
+  ]
+}
